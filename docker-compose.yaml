@@ -1,0 +1,31 @@
+name: cloudly
+
+services:
+  database:
+    image: mysql
+    container_name: cloudly_db
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=cloudly
+      - MYSQL_PASSWORD=cloudly
+      - MYSQL_DATABASE=cloudly
+    networks:
+      - cloudly
+    volumes:
+      - mysql-data:/var/lib/mysql:rw
+  adminer:
+    container_name: cloudly_dbms
+    image: adminer
+    ports:
+      - 8081:8080
+    networks:
+      - cloudly
+  
+volumes:
+  mysql-data:
+
+networks:
+  cloudly:
+    driver: bridge
