@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ObjectController } from './object.controller';
-import { ObjectService } from './object.service';
+import { ObjectController } from './object.controller.js';
+import { ObjectService } from './object.service.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Droplet } from './object.entity';
+import { Droplet } from './object.entity.js';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Droplet])],
