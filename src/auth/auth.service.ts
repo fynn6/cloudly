@@ -3,11 +3,13 @@ import { UserService } from '../user/user.service.js';
 import { LoginDto } from './dto/login.do.js';
 import { RegisterDto } from './dto/register.dto.js';
 import * as bcrypt from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
+    private jwtService: JwtService,
   ) {}
 
   async login(data: LoginDto) {
@@ -32,7 +34,12 @@ export class AuthService {
     }
 
     // create jwt token and return
-    return user;
+    const accessToken = this.jwtService.sign({
+      email: user.email,
+      sub: user.id,
+    })
+
+    return { accessToken };
   }
 
   async register(data: RegisterDto) {
